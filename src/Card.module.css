@@ -1,0 +1,9 @@
+.text{
+    color: red;
+}
+.container{
+    border: 1px solid green;
+    height: 20vh;
+    background-color: white;
+    text-align: center;
+}
