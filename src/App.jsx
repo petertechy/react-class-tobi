@@ -1,52 +1,36 @@
-//JSX - this is a function that returns javascript + html then exports by default
-//React Fragment
-//rafce, rfce
-
-// function App() {
-//   return (
-//     <>
-//       <h1>Hello Everybody</h1>
-//       <h2>Good Morning</h2>
-//     </>
-//   );
-// }
-
-//Interpolation
-const myName = "John";
-console.log(myName);
-import styled from "styled-components";
-import Image from "./assets/hero.png";
-import Card from "./Card";
-import './App.css';
-import Contact from "./Contact";
-import Counter from "./Counter";
-import TodoApp from "./TodoApp";
-const myStyle = {
-  backgroundColor: "#fee2e2",
-  color: "#991b1b"
-};
-
-const MyText = styled.p`
-    line-height: 37px;
-    font-size: 25px;
-`
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Homepage from './pages/Homepage'
+import AboutUs from './pages/AboutUs'
+import Navbar from './components/Navbar'
+import Contact from './pages/Contact'
+import NotFound from './pages/NotFound'
+import Products from './pages/Products'
+import ProductDetails from './pages/ProductDetails'
+import ProductHome from './pages/ProductHome'
+import Bag from './components/Bag'
+import Shoe from './components/Shoe'
 
 const App = () => {
   return (
     <>
-      <button className="btn btn-success w-100 my-4">Press this</button>
-      <button className="btn">Click me</button>
-      <TodoApp/>
-      <Card/>
-      <Counter/>
-      <Contact/>
-      <h1 style={{color: "green", fontSize: "40px"}}>Hello Everybody {4 + 5}</h1>
-      <MyText>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod repellat maiores dolore sapiente accusantium reprehenderit praesentium quisquam laborum porro cum! Accusantium doloribus eum quas perspiciatis recusandae minima vel rem illum.</MyText>
-      <button className="btn">Click us</button>
-      <h2 style={myStyle}>Good Morning {myName}</h2>
-      <img src={Image} alt="" />
-    </>
-  );
-};
+    <Navbar/>
+      <Routes>
+        <Route path='/' element={<Homepage/>}/>
+        <Route path='/about' element={<AboutUs/>}/>
+        <Route path='/contact' element={<Contact/>}/>
+        <Route path='/product' element={<Products/>}/>
+        <Route path='/product/:id' element={<ProductDetails/>}/>
 
-export default App;
+        <Route path="/products" element={<ProductHome />}>
+          <Route path="bags" element={<Bag />} />
+          <Route path="shoes" element={<Shoe />} />
+        </Route>
+
+        <Route path='*' element={<NotFound/>}/>
+      </Routes>
+    </>
+  )
+}
+
+export default App
