@@ -1,45 +1,75 @@
-import { useState } from "react";
+// import React from 'react'
+
+import { useEffect, useState } from "react";
 
 const TodoApp = () => {
-  const [title, setTitle] = useState("");
-  const [todo, setTodo] = useState([]);
+  const [task, setTask] = useState("");
+  const [todos, setTodos] = useState(()=>{
+    try {
+      const saved = JSON.parse(localStorage.getItem("todos")) || []
+      // normalize: older saves may be plain strings
+      return saved.map((t, i) =>
+        typeof t === "string" ? { id: Date.now() + i, text: t } : t
+      )
+    } catch {
+      return []
+    }
+  })
 
-  const newTodo = {
-    id: window.crypto.randomUUID(),
-    text: title,
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos])
+
+  useEffect(()=> {
+    document.title = `My Todos (${todos.length})`
+  }, [todos.length])
+  
+
+  const addTodo = () => {
+     if (!task.trim()) return;
+    setTodos([...todos, { id: Date.now(), text: task.trim() }])
+    // console.log(todos)
+    setTask("");
   };
 
-  const submitTodo = () => {
-    console.log(title);
-    setTodo([...todo, newTodo]);
-  };
-  // const checkValue = (e) =>{
-  //     console.log(e.target.value)
-  //     let input = e.target.value
-  //     setTitle(input)
-  // }
+  const deleteTask = (index) => {
+  // 1. Show a confirmation dialog to the user
+  const isConfirmed = window.confirm("Are you sure you want to delete this task?");
+  
+  // 2. If the user clicks "OK", proceed with the deletion
+  if (isConfirmed) {
+    setTodos(todos.filter((_, i) => i !== index));
+  }
+};
   return (
-    <div className="mx-auto my-5 rounded border shadow p-5 col-8">
-      <h1>Todo App</h1>
+    <div className="mx-auto col-7 rounded p-3 my-3 border shadow">
+      <h1 className="text-center fs-3 text-success">Todo App</h1>
+
       <input
-        onChange={(e) => setTitle(e.target.value)}
         className="form-control mb-3"
         type="text"
-        placeholder="Type your todo"
+        value={task}
+        placeholder="Enter a task"
+        onChange={(e) => setTask(e.target.value)}
       />
-      <button onClick={submitTodo} className="btn btn-success w-100">
-        Submit
+      <button className="btn btn-success" onClick={addTodo}>
+        Add Task
       </button>
 
-      {todo.length === 0 ? (
-        <p className="my-2">No tasks yet — add one above!</p>
-      ) : (
+      {todos.length === 0 ? (<p>No tasks has been added!</p>) : (
         <ul>
-          {todo.map((todos) => (
-            <li key={todos.id}>{todos.text}</li>
-          ))}
+          {
+            todos.map((todo, index)=>(
+              <li key={todo.id}>
+                {todo.text}
+                <button onClick={()=>deleteTask(index)}>Delete</button>
+              </li>
+            ))
+          }
         </ul>
       )}
+
+
     </div>
   );
 };

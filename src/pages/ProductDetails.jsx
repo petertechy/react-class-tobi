@@ -1,7 +1,7 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const ProductDetails = () => {
+    const navigate = useNavigate();
     const products = [
         { id: 1, name: 'Wireless Mouse', price: 8500 },
         { id: 2, name: 'USB-C Hub', price: 12000 },
@@ -19,6 +19,7 @@ const ProductDetails = () => {
     }
   return (
     <div>
+        <button onClick={() => navigate('/product')}>← Back</button>
         <h1>Product Details</h1>
         <h3>{product.name}</h3>
         <p>{product.price}</p>
