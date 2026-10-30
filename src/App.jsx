@@ -13,6 +13,8 @@ import LoginForm from './pages/LoginForm'
 import ItemsPage from './pages/ItemsPage'
 import Effect from './pages/Effect'
 import TodoApp from './TodoApp'
+import BlogPage from './pages/BlogPage'
+import NewPostForm from './pages/NewPost'
 
 const App = () => {
   return (
@@ -30,6 +32,8 @@ const App = () => {
         <Route path='/items' element={<ItemsPage/>}/>
         <Route path='/effect' element={<Effect/>}/>
         <Route path='/todo' element={<TodoApp/>}/>
+        <Route path='/blog' element={<BlogPage/>}/>
+        <Route path='/new-blog' element={<NewPostForm/>}/>
 
 
 
