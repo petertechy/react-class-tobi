@@ -15,6 +15,15 @@ import Effect from './pages/Effect'
 import TodoApp from './TodoApp'
 import BlogPage from './pages/BlogPage'
 import NewPostForm from './pages/NewPost'
+import SignUp from './pages/SignUp'
+import Counter from './pages/Counter'
+import Cart from './components/Cart'
+import ProductList from './components/ProductList'
+import ClassBased from './pages/ClassBased'
+import ErrorBoundary from './pages/ErrorBoundary'
+import Profile from './pages/Profile'
+import CounterDemo from './pages/CounterDemo'
+import Stopwatch from './pages/Timer'
 
 const App = () => {
   return (
@@ -34,6 +43,19 @@ const App = () => {
         <Route path='/todo' element={<TodoApp/>}/>
         <Route path='/blog' element={<BlogPage/>}/>
         <Route path='/new-blog' element={<NewPostForm/>}/>
+        <Route path='/sign-up' element={<SignUp/>}/>
+        <Route path='/count' element={<Counter/>}/>
+        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/product-list' element={<ProductList/>}/>
+        <Route path='/class' element={<ClassBased text="Good Morning"/>}/>
+        <Route path='/ref' element={<CounterDemo/>}/>
+        <Route path='/timer' element={<Stopwatch/>}/>
+          <Route path='/profile' element={ <ErrorBoundary>
+            <Profile />
+          </ErrorBoundary>}/>
+
+
+
 
 
 
